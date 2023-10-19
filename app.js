@@ -14,6 +14,7 @@ app.set("view engine", "ejs");
 // set up cookie
 app.use(
   cookieSession({
+    name: "session",
     maxAge: 24 * 60 * 60 * 1000,
     keys: [keys.session.cookieKey],
   })
@@ -29,8 +30,8 @@ app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
 
 // create home route
-app.get("/", (req, res) => {
-  res.render("home");
+app.get('/', (req, res) => {
+  res.render('home', { user: req.user });
 });
 
 // connect to mongodb
